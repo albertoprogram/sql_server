@@ -7,9 +7,13 @@
 -- Developed and tested by: Alberto Chirinos
 -- Desarrollado y probado por: Alberto Chirinos
 
+USE master
+
+GO
+
 DECLARE @email NVARCHAR(250)
 
-SET @email = 'email_1-ñ-2_other@domainname.com.ec'
+SET @email = 'email_1-ñ-2_other@domain4name.com'
 
 IF (
 -- Start with one letter, continue with the rest, then an at sign,
@@ -55,6 +59,9 @@ AND @email NOT LIKE '%@%.[A-Z].%'
 -- No puede terminar con un punto y una sola letra
 -- Sería una extensión de dominio incorrecta
 AND @email NOT LIKE '%.[A-Z]'
+-- There cannot be a period after the at sign
+-- No puede haber un punto luego del arroba
+AND @email NOT LIKE '%@.%'
 -- The at sign must be in a position less than or equal to 60
 -- El signo de arroba debe estar en una posición menor o igual a 60
 AND CHARINDEX('@', @email) <= 60
